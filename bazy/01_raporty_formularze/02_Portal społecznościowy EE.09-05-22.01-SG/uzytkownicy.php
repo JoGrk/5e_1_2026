@@ -73,19 +73,20 @@
                                     WHERE login = '$login_f';";
                             $result = $link -> query($sql);
                             $data = $result -> fetch_assoc();
-                            $age = 
+                            $age = date("Y") - $data['rok_urodz'];
+                            echo "$age";
                         }
                     };
                     
                 }
                  ?>
-
+<!-- 
                  <img src='zdjecie' alt='osoba'>
                  <h4>login(age)</h4>
                  <p>hobby:</p>
                  <h1>
                     <img src='' alt="">
-                 </h1>
+                 </h1> -->
             </section>
         </section>
     </main>
