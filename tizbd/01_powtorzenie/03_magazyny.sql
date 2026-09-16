@@ -157,13 +157,29 @@ VALUES
 ('H5RT', 'Papers', 200, 2);
 
 -- 14. Zmniejsz wartość wszystkich kontenerów o 15%.  (zrzut)
-update kontenery set wartosc = wartosc*0.85;
+UPDATE kontenery 
+SET wartosc = wartosc*0.85;
 -- 15 Usuń wszystkie kontenery o wartości mniejszej niż $100.  (zrzut)
+
+DELETE FROM Kontenery
+WHERE wartosc < 100;
+
+
 
 -- 16. Usuń wszystkie kontenery z przeładowanych magazynów.   (zrzut)
 
-DELETE FROM kontenery
-WHERE 
+ DELETE FROM Kontenery
+ WHERE magazyn IN (
+                    SELECT
+                    magazyny.kod
+                FROM magazyny
+                WHERE pojemnosc < (
+                    SELECT
+                        COUNT(*)
+                    FROM kontenery
+                    WHERE magazyn = magazyny.kod
+                )
+ );
 
 -- usuń wszystkie kontenery, których kod jest na liście (IN) kodów przeładowanych magazynów (tę wartość zwraca zapytanie nr. 10)
 
