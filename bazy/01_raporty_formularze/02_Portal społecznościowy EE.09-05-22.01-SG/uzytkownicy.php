@@ -74,19 +74,30 @@
                             $result = $link -> query($sql);
                             $data = $result -> fetch_assoc();
                             $age = date("Y") - $data['rok_urodz'];
-                            echo "$age";
+                            echo "
+                            <img src='{$data['zdjecie']}' alt='osoba'>
+                            <h4>{$data['login']}($age) </h4>
+                            <p>hobby {$data['hobby']}</p>
+                            <h1><img src='icon-on.png'>{$data['przyjaciol']}</h1>
+                            <a href='dane.html'>
+                                <button>Więcej informacji</button>
+                            </a>
+                            ";
                         }
                     };
                     
                 }
                  ?>
-<!-- 
-                 <img src='zdjecie' alt='osoba'>
-                 <h4>login(age)</h4>
-                 <p>hobby:</p>
-                 <h1>
-                    <img src='' alt="">
-                 </h1> -->
+
+                <!-- <img src='[zdjecie]' alt='osoba'>
+                <h4>[login]($age) </h4>
+                <p>hobby {hobby}</p>
+                <h1><img src='icon-on.png'>{przyjaciol}</h1>
+                <a href="dane.html">
+                    <button>Więcej informacji</button>
+                </a> -->
+
+
             </section>
         </section>
     </main>
