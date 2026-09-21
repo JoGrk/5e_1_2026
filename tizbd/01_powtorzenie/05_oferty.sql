@@ -85,9 +85,33 @@ WHERE produkt = 1;
 
 -- 5. Wyświetl nazwy wszystkich produktów oferowanych przez dostawcę o kodzie 'HAL'
 
+SELECT nazwa
+FROM dostawcy
+    INNER JOIN oferty ON dostawcy.kod = oferty.dostawca
+WHERE dostawca = 'hal';
+
 -- 6. Dla każdego produktu wyświetl najdroższą ofertę dostawy, pokaż nazwę produktu, nazwę dostawcy oraz cenę (zauważ, że może być więcej niż jeden dostawca oferujący produkty w tej samej, najdroższej cenie).
 
- 
+SELECT
+    dostawcy.nazwa,
+    produkty.nazwa,
+    cena,
+    produkt
+FROM dostawcy
+    INNER JOIN oferty ON dostawcy.kod = oferty.dostawca
+    INNER JOIN produkty ON produkty.kod = oferty.produkt
+WHERE cena = (
+    SELECT
+        MAX(cena)
+    FROM oferty o
+    WHERE o.produkt = produkty.kod
+);
+
+SELECT
+    MAX(cena)
+FROM oferty 
+WHERE produkt = 1;
+
 
 -- Wybierz nazwy produktów, nazwy dostawców i ceny o cenach równych
 
@@ -101,12 +125,44 @@ WHERE produkt = 1;
 
 -- 7. Dodaj Ofertę produktu o kodzie 1 dostawcy "Skellington Supplies"  o cenie 7.
 
- 
+INSERT INTO oferty
+VALUES
+(1, (
+    SELECT
+        kod
+    FROM Dostawcy
+    WHERE nazwa = 'Skellington Supplies'
+), 7);
 
 -- 8. Podnieś cenę wszystkich produktów o 1
 
+UPDATE oferty
+SET cena = cena + 1;
+
 -- 9. Producent  "Susan Calvin Corp." nie będzie dostarczał już wkrętów  (bolt). Usuń właściwy wiersz z tabeli Oferty.
+
+DELETE FROM oferty
+WHERE dostawca = (
+    SELECT
+        kod
+    FROM dostawcy
+    WHERE nazwa = 'Susan Calvin Corp.'
+)
+    AND produkt = (
+        SELECT
+            kod
+        FROM produkty
+        WHERE nazwa = 'bolt'
+    );
 
 -- 10. Usuń z bazy dostawcę o kodzie "RBT"
 
--- 11. Usuwamy z oferty (tabela Oferty) nakrętki (nut). Właściwy kod produktu wyszukaj podzapytaniem.
+DELETE FROM dostawcy
+WHERE kod = 'RBT';
+
+DELETE FROM Oferty
+WHERE dostawca = 'RBT';
+
+-- 11. Usuwamy z oferty (tabela Oferty) produkt (bolt). Właściwy kod produktu wyszukaj podzapytaniem.
+DELETE FROM Oferty
+WHERE Produkt = (SELECT kod FROM produkty WHERE nazwa = 'bolt');
