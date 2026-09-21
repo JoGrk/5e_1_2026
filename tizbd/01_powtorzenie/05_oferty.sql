@@ -78,6 +78,11 @@ from oferty
 GROUP by produkt;
 -- 4. Wyświetl nazwy wszystkich Dostawców oferujących produkt o kodzie 1
 
+SELECT nazwa
+FROM dostawcy
+    INNER JOIN oferty ON dostawcy.kod = oferty.dostawca
+WHERE produkt = 1;
+
 -- 5. Wyświetl nazwy wszystkich produktów oferowanych przez dostawcę o kodzie 'HAL'
 
 -- 6. Dla każdego produktu wyświetl najdroższą ofertę dostawy, pokaż nazwę produktu, nazwę dostawcy oraz cenę (zauważ, że może być więcej niż jeden dostawca oferujący produkty w tej samej, najdroższej cenie).
