@@ -44,3 +44,23 @@ img{
 .opis {
     clear: both ;
 }
+
+button{
+    margin-left: 30px;
+    padding: 20px;
+    background-color: lightcoral;
+    border: 2px dotted maroon;
+    border-radius: 10px;
+}
+
+h2, h4{
+    font-style: italic;
+}
+
+h2{
+    text-align: center;
+}
+
+.mebel:hover{
+    background-color: coral;
+}
