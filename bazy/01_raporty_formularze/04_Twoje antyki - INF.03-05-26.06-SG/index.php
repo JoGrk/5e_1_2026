@@ -1,5 +1,16 @@
 <?php
     $link = new mysqli('localhost', 'root','','5e_1_antyki');
+
+    $furn_f = $_POST['btn-mebel'] ?? NULL;
+    if($furn_f){
+        $sql ="INSERT INTO zakupy
+            (idklienci, idmeble, sztuk)
+            VALUES
+            (1, $furn_f, 1);";
+        $result = $link -> query($sql);
+        header("location: index.php");
+    }
+
     $sql = "SELECT idmeble, nazwa, plik, styl, cena, opis
             FROM meble
             WHERE kategoria = 1";
@@ -18,14 +29,16 @@
     $result = $link -> query($sql);
     $furnitures_1c = $result -> fetch_all(1);
 
-    $furn_f = $_POST['btn-mebel'] ?? NULL;
-    if($button_f){
-        $sql ="INSERT INTO zakupy
-            (idklienci, idmeble, sztuk)
-            VALUES
-            (1, $furn_f, 1);";
-        $result = $link -> query($sql);
-    }
+    $sql = "SELECT
+                nazwa,
+                cena
+            FROM zakupy
+                INNER JOIN meble USING(idmeble)
+            WHERE idKlienci = 1";
+    $result = $link -> query($sql);
+    $baskets = $result -> fetch_all(1);
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -143,6 +156,18 @@
             <h2>Koszyk</h2>
             <p>Zalogowano: Anna Kowalska</p>
             <!-- Skrypt 3 -->
+            <?php
+                echo"<ol>";
+                $sum = 0;
+                    foreach($baskets AS $basket){
+                        echo "<li>{$basket['nazwa']} cena: {$basket['cena']}</li>";
+                        $sum = $sum + $basket['cena'];
+                    }
+                    echo"Koszt całkowity: $sum zl";
+                echo"</ol>";
+                
+            ?>
+            
         </aside>
     </main>
 
