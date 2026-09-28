@@ -18,10 +18,20 @@ ALTER TABLE student
 ADD COLUMN imie VARCHAR(255) NOT NULL AFTER nazwisko;
  
 -- C. Zmień typ pola stypendium tak, aby było możliwe wpisanie stypendium o wartości 10000
- 
+
+ALTER TABLE student
+MODIFY COLUMN stypendium DEC(7, 2) CHECK(stypendium >= 1000);
+
+INSERT INTO student
+(imie, nazwisko, stypendium)
+VALUES
+('Jan','Kowalski',800);
+
+
 -- D. Dodaj wartość domyślną dla stypendium: 1000
  
- 
+ALTER TABLE student
+ALTER stypendium SET DEFAULT 1000;
 
  
 
@@ -33,14 +43,27 @@ CREATE TABLE towar(id_towar INT auto_increment PRIMARY KEY, kod_kreskowy INT, id
  
 -- Zmodyfikuj powyższe tabele:
 -- A. kolumna nazwa z tabeli dostawca powinna być unikatowa,
+
+ALTER TABLE dostawca
+MODIFY nazwa varchar(30) UNIQUE;
  
 -- B. do tabeli towar dodaj niepustą kolumnę nazwa (za polem kod_kreskowy),
+
+ALTER TABLE towar
+ADD nazwa varchar(30) NOT NULL AFTER kod_kreskowy;
  
 -- C. kolumna kod_kreskowy w tabeli towar powinna być unikatowa,
- 
+
+ALTER TABLE towar
+ADD UNIQUE (kod_kreskowy);
+
 -- D.  kolumna id_dostawca z tabeli towar jest kluczem obcym z tabeli dostawca.
- 
+ ALTER TABLE towar
+ ADD foreign key (id_dostawca) REFERENCES dostawca(id_dostawca);
 -- E. kolumna nazwa w tabeli dostawca powinna dopuszczać dłuższe nazwy (zmień typ)
+
+ALTER TABLE dostawca
+MODIFY nazwa varchar(50);
  
 -- 3.  Dane są tabele: 
  CREATE TABLE kraj(id_kraj INT auto_increment PRIMARY KEY, nazwa VARCHAR(30));
@@ -49,9 +72,22 @@ CREATE TABLE towar(id_towar INT auto_increment PRIMARY KEY, kod_kreskowy INT, id
  
 -- Zmodyfikuj powyższe tabele:
 -- A. kolumny nazwa z tabel kraj i gatunek mają być niepuste i unikatowe,
+ALTER TABLE Kraj 
+MODIFY nazwa varchar(30) NOT NULL UNIQUE;
+
+ALTER TABLE gatunek 
+MODIFY nazwa varchar(30) NOT NULL UNIQUE;
 
 -- B. W tabeli zwierze zmień nazwę kolumny id_gatunek na gatunek_id oraz id_kraj na kraj_id
  
+ALTER TABLE zwierze
+CHANGE id_gatunek gatunek_id INT,
+CHANGE id_kraj kraj_id INT;
+
 -- C. kolumna gatunek_id z tabeli zwierze jest kluczem obcym z tabeli gatunek,
+
+ALTER TABLE zwierze
+ADD FOREIGN KEY (gatunek_id) REFERENCES gatunek(id_gatunek),
+ADD FOREIGN KEY (kraj_id) REFERENCES kraj(id_kraj);
  
 -- D. kolumna kraj_id z tabeli zwierze jest kluczem obcym z tabeli kraj
