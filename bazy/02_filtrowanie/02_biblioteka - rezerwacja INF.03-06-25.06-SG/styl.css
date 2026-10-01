@@ -1,0 +1,23 @@
+*{
+    font-family: Cambria;
+}
+body{
+    background-color: mistyrose;
+}
+header, footer{
+    height: 200px;
+    text-align: center;
+    overflow: hidden;
+}
+
+main {
+    display: flex;
+}
+
+main section {
+    background-color: plum;
+    height: 200px;
+    margin: 5px;
+    box-shadow: 4px 4px 10px dimgray;
+    overflow: hidden;
+}

@@ -1,0 +1,79 @@
+/* ‒ Domyślne formatowanie wszystkich selektorów: krój czcionki Georgia */
+*{
+    font-family: Georgia;
+}
+/* ‒ Wspólne dla obu bloków banera: kolor tła Navy, biały kolor czcionki, wyrównanie tekstu do środka, wysokość 100 px, szerokość 50% */
+section.hd-left, section.hd-right{
+    background-color: Navy;
+    color: white;
+    text-align: center;
+    height: 100px;
+    width: 50%;
+}
+header{
+    display: flex;
+}
+
+/* ‒ Dla bloku menu: kolor tła Navy, marginesy wewnętrzne 20 px */
+nav{
+    background-color: navy;
+    padding: 20px;
+}
+/* ‒ Dla klasy formatującej teksty przy polach opcji: kolor czcionki Silver, marginesy zewnętrzne 50 px  */
+
+.level {
+    color: silver;
+    margin: 50px;
+}
+
+/* ‒ W momencie, gdy kursor myszy znajdzie się na tekście pola opcji ma on kolor biały i podkreślenie */
+
+.level:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+/* ‒ Wspólne dla bloku lewego i prawego: kolor tła Azure, wysokość 550 px */
+
+.m-left, m-right {
+    background-color: azure;
+    height: 550px;
+}
+
+/* ‒ Dodatkowo blok lewy ma szerokość 70% a blok prawy szerokość 30% */
+main{
+    display: flex;
+}
+.m-left{
+    width: 70%;
+}
+.m-right{
+    width: 30%;
+}
+
+/* ‒ Dla stopki: kolor tła Navy, biały kolor czcionki */
+
+footer{
+    background-color: navy;
+    color: white;
+}
+
+/* ‒ Dla selektora tabeli: obramowanie linią ciągłą o szerokości 1 px i kolorze Navy, marginesy zewnętrzne automatycznie wyliczane przez przeglądarkę, szerokość 70% */
+
+table{
+    border: solid 1px navy;
+    margin: auto ;
+    width: 70%;
+}
+
+/* ‒ W momencie, gdy kursor myszy znajdzie się na wierszu tabeli, jego kolor tła zmienia się na SkyBlue */
+
+tr:hover{
+    background-color: skyblue;
+}
+
+/* ‒ Dla obrazu w prawym bloku: szerokość 90% */
+
+.m-right img{
+    width: 90%;
+}
