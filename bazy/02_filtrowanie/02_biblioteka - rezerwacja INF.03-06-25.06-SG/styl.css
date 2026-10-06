@@ -12,6 +12,7 @@ header, footer{
 
 main {
     display: flex;
+
 }
 
 main section {
@@ -20,4 +21,25 @@ main section {
     margin: 5px;
     box-shadow: 4px 4px 10px dimgray;
     overflow: hidden;
+    width: 22%;
+}
+
+
+/* dla wąskich ekranów */
+@media screen and (max-width: 800px){
+    main section {
+        width: 100%;
+    }
+    main{
+        flex-direction: column;
+    }
+}
+
+h2{
+    text-align: center;
+}
+
+button:hover{
+    background-color: #505050;
+    color: white;
 }

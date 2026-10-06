@@ -4,7 +4,7 @@ FROM ksiazka
 WHERE gatunek = 'liryka';
 
 -- Zapytanie 2: wybierające pierwsze 15 rekordów, jedynie tytuł książki oraz odpowiadające mu id czytelnika i data oddania posortowane rosnąco według daty oddania. Należy posłużyć się relacją
-SELECT tytul, id, wypozyczenia.data_odd
+SELECT tytul, id_cz, wypozyczenia.data_odd
 FROM ksiazka
     INNER JOIN wypozyczenia ON ksiazka.id = wypozyczenia.id_ks
 ORDER BY wypozyczenia.data_odd ASC
