@@ -7,7 +7,7 @@ CREATE TABLE clients(
 );
  
 -- 1. Przekopiuj kod tworzący tabelę clients. Zakładamy, że tabela zawiera dane, dlatego zanim zaczniemy modyfikację, należy zrobić kopię zapasową tej tabeli. Zrób ją z poziomu wiersza poleceń.
-
+mysqldump -u root 5e_1_naprawy clients > "C:\xampp\htdocs\5e_1\tizbd\02_DDL constraint\clients_copy.sql";
 CREATE TABLE clients_copy AS 
 SELECT * 
 FROM clients;
@@ -15,21 +15,54 @@ FROM clients;
 
 
 -- 2. Sprawdź działanie kopii zapasowej. Usuń tabelę i odtwórz korzystając z wiersza poleceń i przekierowania. 
- 
+mysql -u root 5e_1_naprawy < "C:\xampp\htdocs\5e_1\tizbd\02_DDL constraint\clients_copy.sql";
+drop table clients;
+
 -- 3. Dodaj do tabeli pole status - dwuznakowy tekst o stałej długości oraz pole state tego samego typu, oba pola nie mogą być puste.
- 
+ALTER TABLE clients
+ADD COLUMN status CHAR(2) NOT NULL,
+ADD COLUMN state CHAR(2) NOT NULL;
+
+
 -- 4. Za polem address dodaj address2 (255 znaków)
+
+ALTER TABLE clients
+ADD address2 varchar(255) AFTER address;
  
 -- 5. Przesuń pole state tak, aby było za polem city 
+
+ALTER TABLE clients
+MODIFY state char(2) NOT NULL AFTER city;
   
 -- 6. Dodaj na początku pole cust_id, całkowite, klucz podstawowy
+
+ALTER TABLE clients
+ADD Cust_ID INT PRIMARY KEY FIRST;
  
 -- 7. Zmień nazwę pola address na address1 jednocześnie zwiększając ilość znaków do 50
+
+ALTER TABLE clients
+CHANGE address address1 VARCHAR(50);
  
 -- 8. Zmień nazwę pola status na active jednocześnie zmieniając jego typ: powinien być to typ wyliczeniowy (enum) o dwóch wartościach 'AC' oraz 'IA'
- 
+ ALTER TABLE clients
+ CHANGE status active ENUM('AC', 'IA');
 -- 9. Zakładamy, że w tabeli mamy (dużo) danych. Decydujemy zmienić typ pola activ i wartości na 'yes' dla 'AC' oraz 'no' dla 'IA'. (najpierw zmień typ poszerzając wartości enum, potem zmień dane w tabeli, potem zmień typu enum zawężając wartości)
  
+ALTER TABLE clients
+MODIFY active ENUM('AC', 'IA', 'yes', 'no');
+
+UPDATE clients
+SET active = 'yes'
+WHERE active = 'AC';
+
+UPDATE clients
+SET active = 'no'
+WHERE active = 'IA';
+
+ALTER TABLE clients
+MODIFY active ENUM('yes', 'no');
+
 -- 10. Usuń pole client_type
  
 -- 11.Ustaw domyślną wartość state na 'LA' oraz domyślną wartość city na 'New Orleans'
