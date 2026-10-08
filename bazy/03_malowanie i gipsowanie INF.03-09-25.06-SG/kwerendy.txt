@@ -1,0 +1,31 @@
+-- − Zapytanie 1: wybierające jedynie średnią liczbę pracowników w firmach, minimalną liczbę pracowników i maksymalną liczbę pracowników. Kolumnom należy nadać nazwy (aliasy), kolejno: „średnia”, „najmniej”, „najwięcej”
+
+SELECT AVG(liczba_pracownikow) as srednia, MIN(liczba_pracownikow) as najmniej,
+MAX(liczba_pracownikow) as najwięcej
+FROM wykonawcy;
+
+-- − Zapytanie 2: wybierające jedynie nazwy firm i liczbę pracowników dla firm, w których liczba pracowników wynosi 40 i więcej
+select nazwa_firmy, liczba_pracownikow from wykonawcy
+where liczba_pracownikow >=40;
+-- − Zapytanie 3: wybierające bez powtórzeń jedynie nazwy miast, z których pochodzą klienci, posortowane rosnąco według nazwy miasta
+
+SELECT DISTINCT miasto
+FROM klienci
+ORDER BY miasto ASC;
+
+-- − Zapytanie 4: wybierające jedynie imiona klientów oraz ceny ich zleceń tylko dla klientów z Poznania, którzy zamówili malowanie. Należy posłużyć się relacją
+
+SELECT imie, cena
+FROM zlecenia
+    INNER JOIN klienci ON zlecenia.id_klienta = klienci.id_klienta
+WHERE miasto = 'Poznań'
+AND rodzaj = 'malowanie';
+
+-- − Zapytanie 5: wybierające jedynie imiona klientów oraz nazwy firm wykonujących dla nich zlecenia. Należy posłużyć się relacją
+SELECT imie, wykonawcy.nazwa_firmy
+FROM klienci
+    INNER JOIN zlecenia USING(id_klienta)
+    INNER JOIN wykonanie USING(id_zlecenia)
+    INNER JOIN wykonawcy USING(id_wykonawcy);
+    
+    
