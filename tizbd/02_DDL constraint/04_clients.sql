@@ -64,29 +64,75 @@ ALTER TABLE clients
 MODIFY active ENUM('yes', 'no');
 
 -- 10. Usuń pole client_type
+
+ALTER TABLE clients
+DROP COLUMN client_type;
  
 -- 11.Ustaw domyślną wartość state na 'LA' oraz domyślną wartość city na 'New Orleans'
- 
+ ALTER table clients
+ ALTER state SET DEFAULT 'LA',
+ ALTER city SET DEFAULT 'New Orleans';
 -- 12. dodaj więzy: dopuszczalne wartości pola state to LA, CO, KY,CA
  
+ALTER TABLE clients
+ADD CHECK(state IN('LA', 'CO', 'KY', 'CA'));
+
 -- 13. Dodaj więzy: wartości w polu zip nie mogą się powtarzać.
- 
+ALTER TABLE clients
+ADD UNIQUE(zip);
+
+ALTER TABLE clients
+ADD CONSTRAINT un_zip UNIQUE(zip);
+
 -- 14. Jednak chcemy, aby wartosci w polu zip się powtarzały.
+
+ALTER TABLE clients
+DROP CONSTRAINT un_zip;
+
+ALTER TABLE clients
+DROP UNIQUE(zip);
+
+ALTER TABLE clients
+MODIFY zip varchar(10);
+
+ALTER TABLE clients
+DROP INDEX zip;
  
 -- 15. usuń domyślną wartość dla city
+
+ALTER TABLE clients
+ALTER city DROP DEFAULT;
  
 -- 16. Zmień nazwę pola cust_id na client_id.
+
+ALTER TABLE clients
+CHANGE cust_id client_id int;
  
--- 17. Czy mamy jakieś indeksy w tabeli? 
+-- 17. Czy mamy jakieś indeksy w tabeli?
+
+SHOW INDEXES FROM clients;
  
 -- 18. Dodaj index na polu city
+
+CREATE INDEX city ON clients(city);
  
 -- 19. Dodaj unikatowy index na polu name
- 
+ CREATE UNIQUE INDEX IDX_name 
+ ON clients(name);
 -- 20. Utwórz index na polach address1 i address2
  
+CREATE INDEX idx_address1
+ON clients(address1, address2);
+
+
 -- 21. Zmień nazwę tabeli clients na client_addresses
  
+ ALTER TABLE clients 
+ RENAME client_addresses;
+
 -- 22. Usuń index z pól address1 i address2
- 
+ALTER TABLE client_addresses
+ DROP INDEX idx_address1;
 -- 23. Przenieś tabelę client_addresses do dowolnej innej bazy danych
+
+RENAME TABLE 5e_1_naprawy.client_addresses TO 5e_1_remonty.client_addresses;
