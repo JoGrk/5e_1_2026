@@ -2,10 +2,15 @@
 
     $link=new mysqli('localhost','root','','5e_1_matura');
 
-    $student_id_g = $_GET['id']?? NULL;
+    $student_id_g = $_GET['student-id']?? NULL;
+    $first_name_g = $_GET['first-name']?? NULL;
+    $last_name_g = $_GET['last-name']?? NULL;
     // $Sname = $_GET?
+    // var_dump($student_id_g);
+    // var_dump($first_name_g);
+    // var_dump($last_name_g);
 
-    if($student_id_g){
+    if($student_id_g && $first_name_g && $last_name_g){
         $sql = "SELECT rok, sesja, przedmiot, punkty
                 FROM arkusz
                     INNER JOIN wynik ON arkusz.symbol = wynik.symbol
@@ -47,18 +52,26 @@
         <section class="first">
             <!-- − Efekt działania skryptu 3 -->
 
-            <h2>{['imie']} {['nazwisko']}</h2>
+            <!-- <h2>{['imie']} {['nazwisko']}</h2>
 
             <h3>{['rok']} {['sesja']}</h3>
-            <p>{['przedmiot']} {['punkty']}</p>
+            <p>{['przedmiot']} {['punkty']}</p> -->
+
+            <!-- rok, sesja, przedmiot, punkty -->
 
             <?php
 
-                echo "
-                
-                
-                "
+                if($student_id_g && $first_name_g && $last_name_g){
+                    echo "
+                    
+                        <h2>$first_name_g $last_name_g</h2>
 
+                        <h3>{$student['rok']} {$student['sesja']}</h3>
+
+                        <p>{$student['przedmiot']} {$student['punkty']}</p>
+                    
+                    ";
+                }
             ?>
 
         </section>

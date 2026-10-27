@@ -71,11 +71,16 @@ $students = $result -> fetch_all(1);
                 Wybierz ucznia z listy:
             </h3>
 
-            <!-- <a href='wynik.php?student-id={['id']}'>{['id']}.{['imie']} {['nazwisko']}</a><br> -->
+            <!-- 
+            <a href='wynik.php?student-id={['id']}&first-name={['imie']}& last-name={['nazwisko']}'>
+                {['id']}.{['imie']} {['nazwisko']}
+            </a><br> -->
+
+
 
             <?php
                 foreach($students as $student){
-                    echo"<a href='wynik.php?student-id={$student['id']}&&'>{$student['id']}.{$student['imie']} {$student['nazwisko']}</a><br>";
+                    echo"<a href='wynik.php?student-id={$student['id']}&first-name={$student['imie']}&last-name={$student['nazwisko']}'>{$student['id']}.{$student['imie']} {$student['nazwisko']}</a><br>";
                 }
             ?>  
             <!-- − Efekt działania skryptu 2 -->

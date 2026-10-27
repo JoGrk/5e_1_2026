@@ -1,0 +1,24 @@
+aside {
+    width: 30%;
+    height: 100vh;
+}
+
+main {
+    background-color: azure;
+    width: 70%;
+    height: 100vh;
+}
+
+body {
+    display: flex;
+}
+
+.block {
+    background-color: aqua;
+    border: 1px solid blue;
+    box-shadow: 1px 1px 10px 5px blueviolet ;
+    display: inline-block;
+    vertical-align: top;
+    height: 150px;
+    width: 200px;
+}
