@@ -1,4 +1,5 @@
 <?php
+    
     setcookie('nazwa', 'witam na stronie', time()
     +10);
 ?>
